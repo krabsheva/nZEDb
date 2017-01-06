@@ -57,7 +57,7 @@ if ($collections_rows instanceof \Traversable) {
 		echo $pdo->log->primary("Group ${groupName}, Binaries = ${binaries['cnt']} [${nbinaries['cnt']}]");
 
 		//parts
-		$pdo->queryExec("INSERT IGNORE INTO parts_${row['group_id']} (messageid, number, partnumber, size, binaryid, collection_id) "
+		$pdo->queryExec("INSERT IGNORE INTO parts_${row['group_id']} (messageid, number, partnumber, size, binaryid) "
 			. "SELECT messageid, number, partnumber, size, n.id, c.id FROM parts p "
 			. "INNER JOIN binaries b ON p.binaryid = b.id "
 			. "INNER JOIN binaries_${row['group_id']} n ON b.binaryhash = n.binaryhash "
