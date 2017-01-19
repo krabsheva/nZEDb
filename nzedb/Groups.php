@@ -405,7 +405,7 @@ class Groups
 		$this->pdo->queryExec("
 			DELETE mp
 			FROM missed_parts mp
-			WHERE mp.group_id = {$id}"
+			WHERE mp.groups_id = {$id}"
 		);
 
 		foreach ($this->cbpm AS $tablePrefix) {
