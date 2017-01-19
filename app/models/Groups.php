@@ -36,6 +36,13 @@ class Groups extends \lithium\data\Model
 		]
 	];
 
+	/**
+	 * Find single group item using its id field.
+	 *
+	 * @param $groupID
+	 *
+	 * @return mixed
+	 */
 	public static function findByID($groupID)
 	{
 		return Groups::find('first', ['conditions' => ['id' => $groupID]]);
@@ -67,6 +74,32 @@ class Groups extends \lithium\data\Model
 		}
 
 		return $primary;
+	}
+
+	public static function findRange($page = 1, $limit = ITEMS_PER_PAGE, $name = '', $active = -1)
+	{
+		$options = [
+			'limit' => $limit,
+			'order' => ['name' => 'ASC'],
+			'page'  => (int)$page
+		];
+
+		$where = [];
+		if ($active > -1) {
+			$where += ['active' => $active];
+		}
+
+		if ($name != '') {
+			$where += ['name' => ['LIKE' => "%$name%"]];
+		}
+
+		if (!empty($where)) {
+			$options += ['conditions' => $where];
+		}
+
+		$result = Groups::find('all', $options);
+
+		return $result;
 	}
 
 	/**
